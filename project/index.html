@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html ng-app="mainApp" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Eatlo | Food Ordering | Lunch delivery in Bangalore | 20 mins Delivery</title>
+    <link rel="icon" href="http://eatloapp.com/img/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,300,500' rel='stylesheet' type='text/css'>
+    <link href="Style/main.css" rel="stylesheet" />
+</head>
+<body ng-controller="mainAppController">
+    <div class="container-fluid">
+        <div class="row" id="col-xs1">
+            <div ng-show="Menu.getIsLoc()" style="margin: 15px 0px 0px 0px;float:left;">
+                <b>{{Menu.getNameLoc()}}</b>&nbsp;&nbsp;
+                    <a ng-click="changeLocation()" style="color: #DBDBDB;cursor: pointer;text-decoration: none;font-weight: normal">ChangeLocation</a>
+            </div>
+            <img src="http://eatloapp.com/img/Eatlo_Logo_square.png"/>
+            <div class="socialNetwork">
+                <img onclick="window.open('https://www.facebook.com/eatloapp')" src="http://eatloapp.com/img/facebook.png" alt="Facebook" />
+                <img onclick="window.open('https://www.twitter.com/eatloapp')" src="http://eatloapp.com/img/twitter.png" alt="Facebook" />
+                <img onclick="window.open('http://www.eatloapp.com/app')" src="http://eatloapp.com/img/android.png" alt="Facebook" />
+                <img onclick="window.open('http://about.eatloapp.com/ios')" src="http://eatloapp.com/img/apple.png" alt="Facebook" />&nbsp;&nbsp;
+            </div>
+        </div>
+        <br />
+        <div class="ng-view"></div>
+        <script type="text/ng-template" id="home.html">
+            <div class="locContent" ng-controller="outletCtrl">
+                <span class="slectLoc">Select Delivery Location</span><br />
+                <br />
+                <ul>
+                    <li ng-repeat="outlet in outlets|orderBy: 'distance'" ng-click="getMenu(outlet.id,outlet.name)">{{outlet.name}}  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></li>
+                </ul>
+            </div>
+        </script>
+        <br />
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" ng-init="navBarCollapsed=true" ng-click="navBarCollapsed = !navBarCollapsed" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-toggle collapsed" id="navbarHead" href="/index" style="margin-right:35%;font-weight:700">Eatloo</a>
+                </div>
+                <div class="collapse navbar-collapse" collapse="navBarCollapsed">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{activeNav:isActive('/index')}"><a href="#/index">Choose Location</a></li>
+                        <li ng-class="{activeNav:isActive('/Menu')}"><a href="#/Menu">Choose Dishes</a></li>
+                        <li ng-class="{activeNav:isActive('/PlaceOrder')}"><a href="#/PlaceOrder">Place Order</a></li>
+                        <li ng-class="{activeNav:isActive('/OrderHistory')}"><a href="#/OrderHistory">Order History</a></li>
+                        <li ng-class="{activeNav:isActive('/ContactUs')}"><a href="#/ContactUs">Contact Us</a></li>
+                        <li ng-class="{activeNav:isActive('/AboutUs')}"><a href="#/AboutUs">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <script src="Controller/MainApp.js"></script>
+        <script src="Controller/outletCtrl.js"></script>
+        <script src="Controller/menuCtrl.js"></script>
+    </div>
+</body>
+</html>

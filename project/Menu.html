@@ -1,0 +1,64 @@
+﻿<div ng-controller="menuCtrl">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="slectLoc">Lunch and Snacks Menu</span> &nbsp; 
+                    <span style="float: right">
+                        <a ng-click="typeFilter(null)" ng-class="{allAc:isAct1}" class="all">All</a>
+                        <a ng-click="typeFilter('115')" ng-class="{allAc:isAct2}" class="all">Veg</a>
+                        <a ng-click="typeFilter('Non-Veg')" ng-class="{allAc:isAct3}" class="all">Non-Veg</a>
+                    </span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5%;" id="itemOldNewList">
+                <div class="col-sm-3" ng-repeat="prodct in products|filter:getType" id="menuList" ng-click="addedToCart(prodct)">
+                    <div style="background-image: url('http://api.done.to/images/6896/{{prodct.photo_url}}');background-position: center center;background-repeat: no-repeat;background-size: cover;height: 125px;">
+                        <img style="position: absolute; margin: 5px;" src="http://api.done.to/images/6896/{{prodct.attributes[0].photo_url}}">
+                    </div>
+                    <div class="productDetails">
+                        <div class="productName">{{prodct.name}}</div>
+                        <div class="productPrice">₹{{prodct.price}}</div>
+                    </div>
+                    <div class="productDesc">{{prodct.description}}</div>
+                </div>
+                <div class="col-sm-3" ng-repeat="prodct in oldProducts|filter:getType" id="soldList">
+                    <div style="background-image: url('http://api.done.to/images/6896/{{prodct.photo_url}}');background-position: center center;background-repeat: no-repeat;background-size: cover; height: 125px;">
+                        <img style="position: absolute; width: 100%; height: 125px;" src="http://eatloapp.com/img/sold-out.png">
+                    </div>
+                    <div class="productDetails">
+                        <div class="productName">{{prodct.name}}</div>
+                        <div class="productPrice">₹{{prodct.price}}</div>
+                    </div>
+                    <div class="productDesc">{{prodct.description}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div ng-show="cartData">
+                <div class="cartContainer">
+                    <span id="cartInfo">{{itemCnt}} items of {{cartItems.length}} products </span>
+                    <hr>
+                    <div class="cartItemRow" ng-repeat="cartItem in cartItems track by $index">
+                        <div class="cart">
+                            <span class="product-name">{{cartItem.name}}</span>
+                        </div>
+                        <div class="columns">
+                            <span style="padding-left:15px;">{{cartItem.quantity}}</span>
+                            <span style="float:right;padding-right:50px;">Rs. {{cartItem.totalPrice}}</span>
+                        </div>
+                        <div class="cartColumns">
+                            <button class="glyphicon glyphicon-minus" ng-click="editQuantity(-1, cartItem)"></button>
+                            <button class="glyphicon glyphicon-plus" ng-click="editQuantity(1, cartItem)"></button>
+                            <button class="glyphicon glyphicon-remove" ng-click="removeCartItem($index)"></button>
+                        </div>
+                    </div>
+                    <!--<hr >-->
+                    <span id="cart-total">Total: &#8377; <span style="font-size: 27px;"><b>{{cartTotalPr|number:2}}</b></span></span>
+
+                    <button type="button" class="btn btn-success" style="float:right;margin-top:5px;margin-right:15px">Proceed <i class="glyphicon glyphicon-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
